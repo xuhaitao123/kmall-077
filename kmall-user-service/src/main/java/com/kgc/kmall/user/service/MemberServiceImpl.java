@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 @Service
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService{
     @Resource
     MemberMapper memberMapper;
     @Override
