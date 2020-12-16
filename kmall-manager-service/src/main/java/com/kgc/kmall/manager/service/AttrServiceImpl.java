@@ -29,5 +29,6 @@ public class AttrServiceImpl implements AttrService{
     public Integer add(PmsBaseAttrInfo attrInfo) {
         int insert = PmsBaseAttrInfoMapper.insert(attrInfo);
         return insert;
+
     }
 }
