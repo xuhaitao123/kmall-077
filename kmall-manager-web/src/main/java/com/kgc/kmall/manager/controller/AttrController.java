@@ -1,6 +1,7 @@
 package com.kgc.kmall.manager.controller;
 
 import com.kgc.kmall.bean.PmsBaseAttrInfo;
+import com.kgc.kmall.bean.PmsBaseAttrValue;
 import com.kgc.kmall.service.AttrService;
 import net.bytebuddy.asm.Advice;
 import org.apache.dubbo.config.annotation.Reference;
@@ -30,6 +31,12 @@ public class AttrController {
     public Integer  baseSaleAttrList(@RequestBody PmsBaseAttrInfo attrInfo){
         Integer add = AttrService.add(attrInfo);
         return  add;
+    }
+
+    @RequestMapping("/getAttrValueList")
+    public List<PmsBaseAttrValue> getAttrValueList(Long attrId){
+        List<PmsBaseAttrValue> valueList = AttrService.getAttrValueList(attrId);
+        return valueList;
     }
 
 }
