@@ -3,7 +3,7 @@
 <mapper namespace="com.kgc.kmall.manager.mapper.PmsProductInfoMapper" >
   <resultMap id="BaseResultMap" type="com.kgc.kmall.bean.PmsProductInfo" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_name" property="spuName" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="catalog3_id" property="catalog3Id" jdbcType="BIGINT" />
     <result column="tm_id" property="tmId" jdbcType="BIGINT" />
@@ -84,7 +84,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from pms_product_info
     where id = #{id,jdbcType=BIGINT}
@@ -100,9 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.kgc.kmall.bean.PmsProductInfo" >
-    insert into pms_product_info (id, product_name, description, 
+    insert into pms_product_info (id, product_name, description,
       catalog3_id, tm_id)
-    values (#{id,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{spuName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
       #{catalog3Id,jdbcType=BIGINT}, #{tmId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.kgc.kmall.bean.PmsProductInfo" >
@@ -111,7 +111,7 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="productName != null" >
+      <if test="spuName != null" >
         product_name,
       </if>
       <if test="description != null" >
@@ -128,8 +128,8 @@
       <if test="id != null" >
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="productName != null" >
-        #{productName,jdbcType=VARCHAR},
+      <if test="spuName != null" >
+        #{spuName,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -154,8 +154,8 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.productName != null" >
-        product_name = #{record.productName,jdbcType=VARCHAR},
+      <if test="record.spuName != null" >
+        product_name = #{record.spuName,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
@@ -174,10 +174,10 @@
   <update id="updateByExample" parameterType="map" >
     update pms_product_info
     set id = #{record.id,jdbcType=BIGINT},
-      product_name = #{record.productName,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      catalog3_id = #{record.catalog3Id,jdbcType=BIGINT},
-      tm_id = #{record.tmId,jdbcType=BIGINT}
+    product_name = #{record.spuName,jdbcType=VARCHAR},
+    description = #{record.description,jdbcType=VARCHAR},
+    catalog3_id = #{record.catalog3Id,jdbcType=BIGINT},
+    tm_id = #{record.tmId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,8 +185,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.kgc.kmall.bean.PmsProductInfo" >
     update pms_product_info
     <set >
-      <if test="productName != null" >
-        product_name = #{productName,jdbcType=VARCHAR},
+      <if test="spuName != null" >
+        product_name = #{spuName,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.kgc.kmall.bean.PmsProductInfo" >
     update pms_product_info
-    set product_name = #{productName,jdbcType=VARCHAR},
+    set product_name = #{spuName,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       catalog3_id = #{catalog3Id,jdbcType=BIGINT},
       tm_id = #{tmId,jdbcType=BIGINT}

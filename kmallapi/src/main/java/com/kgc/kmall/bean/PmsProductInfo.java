@@ -1,9 +1,13 @@
 package com.kgc.kmall.bean;
 
-public class PmsProductInfo {
+import java.io.Serializable;
+
+public class PmsProductInfo  implements Serializable{
     private Long id;
 
     private String productName;
+
+    private String spuName;
 
     private String description;
 
@@ -17,6 +21,14 @@ public class PmsProductInfo {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSpuName() {
+        return spuName;
+    }
+
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
     }
 
     public String getProductName() {
