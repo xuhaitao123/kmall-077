@@ -33,10 +33,6 @@ public class AttrController {
         return  add;
     }
 
-    @RequestMapping("/getAttrValueList")
-    public List<PmsBaseAttrValue> getAttrValueList(Long attrId){
-        List<PmsBaseAttrValue> valueList = AttrService.getAttrValueList(attrId);
-        return valueList;
-    }
+
 
 }

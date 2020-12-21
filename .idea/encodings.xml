@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/../.笔记题及其相关/软件/安装nodejs/kmall-admin/fastdfs-client-java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-manager-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-manager-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-user" charset="UTF-8" />

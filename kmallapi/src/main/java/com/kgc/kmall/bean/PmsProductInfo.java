@@ -1,6 +1,7 @@
 package com.kgc.kmall.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class PmsProductInfo  implements Serializable{
     private Long id;
@@ -14,6 +15,26 @@ public class PmsProductInfo  implements Serializable{
     private Long catalog3Id;
 
     private Long tmId;
+//图片列表
+    private List<PmsProductImage> spuImageList;
+//
+    private List<PmsProductSaleAttr> spuSaleAttrList;
+
+    public List<PmsProductImage> getSpuImageList() {
+        return spuImageList;
+    }
+
+    public void setSpuImageList(List<PmsProductImage> spuImageList) {
+        this.spuImageList = spuImageList;
+    }
+
+    public List<PmsProductSaleAttr> getSpuSaleAttrList() {
+        return spuSaleAttrList;
+    }
+
+    public void setSpuSaleAttrList(List<PmsProductSaleAttr> spuSaleAttrList) {
+        this.spuSaleAttrList = spuSaleAttrList;
+    }
 
     public Long getId() {
         return id;
