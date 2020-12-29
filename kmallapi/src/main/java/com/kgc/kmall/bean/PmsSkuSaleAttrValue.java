@@ -1,6 +1,8 @@
 package com.kgc.kmall.bean;
 
-public class PmsSkuSaleAttrValue {
+import java.io.Serializable;
+
+public class PmsSkuSaleAttrValue implements Serializable{
     private Long id;
 
     private Long skuId;

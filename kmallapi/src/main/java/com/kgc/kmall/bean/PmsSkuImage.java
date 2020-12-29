@@ -1,6 +1,8 @@
 package com.kgc.kmall.bean;
 
-public class PmsSkuImage {
+import java.io.Serializable;
+
+public class PmsSkuImage implements Serializable {
     private Long id;
 
     private Long skuId;
@@ -9,7 +11,7 @@ public class PmsSkuImage {
 
     private String imgUrl;
 
-    private Long productImgId;
+    private Long spuImgId;
 
     private String isDefault;
 
@@ -45,12 +47,12 @@ public class PmsSkuImage {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
     }
 
-    public Long getProductImgId() {
-        return productImgId;
+    public Long getSpuImgId() {
+        return spuImgId;
     }
 
-    public void setProductImgId(Long productImgId) {
-        this.productImgId = productImgId;
+    public void setSpuImgId(Long spuImgId) {
+        this.spuImgId = spuImgId;
     }
 
     public String getIsDefault() {

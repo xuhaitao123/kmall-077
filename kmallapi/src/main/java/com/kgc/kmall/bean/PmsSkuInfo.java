@@ -1,9 +1,12 @@
 package com.kgc.kmall.bean;
 
-public class PmsSkuInfo {
+import java.io.Serializable;
+import java.util.List;
+
+public class PmsSkuInfo implements Serializable{
     private Long id;
 
-    private Long productId;
+    private Long spuId;
 
     private Double price;
 
@@ -19,6 +22,44 @@ public class PmsSkuInfo {
 
     private String skuDefaultImg;
 
+    List<PmsSkuImage> skuImageList;
+
+    List<PmsSkuAttrValue> skuAttrValueList;
+
+    List<PmsSkuSaleAttrValue> skuSaleAttrValueList;
+
+    public Long getSpuId() {
+        return spuId;
+    }
+
+    public void setSpuId(Long spuId) {
+        this.spuId = spuId;
+    }
+
+    public List<PmsSkuImage> getSkuImageList() {
+        return skuImageList;
+    }
+
+    public void setSkuImageList(List<PmsSkuImage> skuImageList) {
+        this.skuImageList = skuImageList;
+    }
+
+    public List<PmsSkuAttrValue> getSkuAttrValueList() {
+        return skuAttrValueList;
+    }
+
+    public void setSkuAttrValueList(List<PmsSkuAttrValue> skuAttrValueList) {
+        this.skuAttrValueList = skuAttrValueList;
+    }
+
+    public List<PmsSkuSaleAttrValue> getSkuSaleAttrValueList() {
+        return skuSaleAttrValueList;
+    }
+
+    public void setSkuSaleAttrValueList(List<PmsSkuSaleAttrValue> skuSaleAttrValueList) {
+        this.skuSaleAttrValueList = skuSaleAttrValueList;
+    }
+
     public Long getId() {
         return id;
     }
@@ -27,13 +68,7 @@ public class PmsSkuInfo {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
 
     public Double getPrice() {
         return price;

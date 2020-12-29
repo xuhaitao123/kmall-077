@@ -1,10 +1,10 @@
 package com.kgc.kmall.manager.controller;
 
-import com.kgc.kmall.bean.PmsBaseSaleAttr;
-import com.kgc.kmall.bean.PmsProductImage;
-import com.kgc.kmall.bean.PmsProductInfo;
-import com.kgc.kmall.bean.PmsProductSaleAttr;
+import com.kgc.kmall.bean.*;
 import com.kgc.kmall.service.SpuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.csource.fastdfs.ClientGlobal;
@@ -19,18 +19,20 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@Api(tags = "商品信息管理",description = "商品属性spu管理")
 public class SpuController {
     @Reference
     SpuService spuService;
 
     @Value("${fileServer.url}")
     String fileUrl;
-
+    @ApiOperation("根据三级分类id查询商品信息")
     @RequestMapping("/spuList")
     public List<PmsProductInfo> spuList(Long catalog3Id){
         List<PmsProductInfo> pmsProductInfos = spuService.spuList(catalog3Id);
         return  pmsProductInfos;
     }
+    @ApiOperation("保存图片信息")
     @RequestMapping("/fileUpload")
     public String fileUpload(@RequestParam("file")MultipartFile file){
 
@@ -60,24 +62,30 @@ public class SpuController {
         return null;
     }
 
+    @ApiOperation("添加属性销售值")
     @RequestMapping("/baseSaleAttrList")
     public List<PmsBaseSaleAttr> baseSaleAttrList(){
         List<PmsBaseSaleAttr> saleAttrList = spuService.baseSaleAttrList();
         return saleAttrList;
     }
 
+    @ApiOperation("添加属性值保存")
+    @PostMapping(value = "/spuSaleAttrList",produces = "application/json;charset=UTF-8")
     @RequestMapping("/saveSpuInfo")
-    public String saveSpuInfo(@RequestBody  PmsProductInfo pmsProductInfo){
+    public String saveSpuInfo(@RequestBody @ApiParam(name = "spuId",value = "用户对象",required = true)  PmsProductInfo pmsProductInfo){
         //保存数据库
         Integer integer = spuService.saveSpuInfo(pmsProductInfo);
         return integer>0?"success":"fail";
     }
-    @RequestMapping("/spuSaleAttrList")
+
+    @ApiOperation("获取spu值")
+
     public List<PmsProductSaleAttr> spuSaleAttrList(Long spuId){
         List<PmsProductSaleAttr> pmsProductSaleAttrList=spuService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrList;
     }
 
+    @ApiOperation("获取spu值")
     @RequestMapping("/spuImageList")
     public List<PmsProductImage> spuImageList(Long spuId){
         List<PmsProductImage> pmsProductImageList = spuService.spuImageList(spuId);
