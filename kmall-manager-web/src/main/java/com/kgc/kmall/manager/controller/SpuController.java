@@ -70,7 +70,7 @@ public class SpuController {
     }
 
     @ApiOperation("添加属性值保存")
-    @PostMapping(value = "/spuSaleAttrList",produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/spuId",produces = "application/json;charset=UTF-8")
     @RequestMapping("/saveSpuInfo")
     public String saveSpuInfo(@RequestBody @ApiParam(name = "spuId",value = "用户对象",required = true)  PmsProductInfo pmsProductInfo){
         //保存数据库
@@ -78,8 +78,8 @@ public class SpuController {
         return integer>0?"success":"fail";
     }
 
-    @ApiOperation("获取spu值")
 
+    @RequestMapping("/spuSaleAttrList")
     public List<PmsProductSaleAttr> spuSaleAttrList(Long spuId){
         List<PmsProductSaleAttr> pmsProductSaleAttrList=spuService.spuSaleAttrList(spuId);
         return pmsProductSaleAttrList;
