@@ -10,6 +10,8 @@ import com.kgc.kmall.manager.mapper.PmsSkuInfoMapper;
 import com.kgc.kmall.manager.mapper.PmsSkuSaleAttrValueMapper;
 import com.kgc.kmall.service.SkuService;
 import org.apache.dubbo.config.annotation.Service;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
@@ -33,6 +35,8 @@ public class SkuServiceImpl implements SkuService{
     PmsSkuSaleAttrValueMapper pmsSkuSaleAttrValueMapper;
     @Resource
     RedisUtil redisUtil;
+    @Resource
+    RedissonClient redissonClient;
     @Override
     public String saveSkuInfo(PmsSkuInfo skuInfo) {
         pmsSkuInfoMapper.insert(skuInfo);
@@ -52,13 +56,13 @@ public class SkuServiceImpl implements SkuService{
         return "success";
     }
 
-    @Override
+   /* @Override
     public PmsSkuInfo selectBySkuId(Long id) {
         PmsSkuInfo pmsSkuInfo=null;
         Jedis jedis = redisUtil.getJedis();
         String skuKey= "sku:"+id+":info";
         String skuInfoJson = jedis.get(skuKey);
-        if(skuInfoJson==null ){
+        if(skuInfoJson==null){
             //使用nx分布式锁，避免缓存击穿
             String skuLockKey="sku:"+id+":lock";
             String skuLockValue= UUID.randomUUID().toString();
@@ -98,12 +102,66 @@ public class SkuServiceImpl implements SkuService{
         }
         jedis.close();
         return pmsSkuInfo;
-    }
+    }*/
+   @Override
+   public PmsSkuInfo selectBySkuId(Long id) {
+       PmsSkuInfo pmsSkuInfo = null;
+       Jedis jedis = redisUtil.getJedis();
+       String skuKey = "sku:" + id + ":info";
+       String skuInfoJson = jedis.get(skuKey);
+
+       if (skuInfoJson != null) {
+           pmsSkuInfo = JSON.parseObject(skuInfoJson, PmsSkuInfo.class);
+           jedis.close();
+           System.out.println("缓存");
+           return pmsSkuInfo;
+
+       } else {
+           //获取分布式锁
+           //使用nx分布式锁，避免缓存击穿
+           RLock lock = redissonClient.getLock("lock");
+           lock.lock();//上锁
+           try {
+               System.out.println("数据库");
+               pmsSkuInfo = pmsSkuInfoMapper.selectByPrimaryKey(id);
+               //保存到redis
+               if (pmsSkuInfo != null) {
+                   String skuInfoJsonStr = JSON.toJSONString(pmsSkuInfo);
+                   //有效期随机，防止缓存雪崩
+                   Random random = new Random();
+                   int i = random.nextInt(10);
+                   jedis.setex(skuKey, i * 60 * 1000, skuInfoJsonStr);
+               } else {
+                   jedis.setex(skuKey, 5 * 60 * 1000, "empty");
+               }
+               jedis.close();
+
+           } finally {
+               lock.unlock();
+           }
+
+       }
+       return pmsSkuInfo;
+   }
 
     @Override
     public List<PmsSkuInfo> selectBySpuId(Long spuId) {
         return pmsSkuInfoMapper.selectBySpuId(spuId);
     }
+
+    @Override
+    public List<PmsSkuInfo> getAllSku() {
+        List<PmsSkuInfo> pmsSkuInfos = pmsSkuInfoMapper.selectByExample(null);
+        for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
+            PmsSkuAttrValueExample example=new PmsSkuAttrValueExample();
+            PmsSkuAttrValueExample.Criteria criteria = example.createCriteria();
+            criteria.andSkuIdEqualTo(pmsSkuInfo.getId());
+            List<PmsSkuAttrValue> pmsSkuAttrValues = pmsSkuAttrValueMapper.selectByExample(example);
+            pmsSkuInfo.setSkuAttrValueList(pmsSkuAttrValues);
+        }
+        return pmsSkuInfos;
+    }
+
 
 
 }

@@ -37,6 +37,8 @@ public class ItemController {
         PmsSkuInfo pmsSkuInfo = skuService.selectBySkuId(skuId);
         model.addAttribute("skuInfo",pmsSkuInfo);
         //根据spuid获取销售属性和属性和属性值
+        System.out.println(pmsSkuInfo.getSpuId());
+        System.out.println(pmsSkuInfo.getId());
         List<PmsProductSaleAttr> spuSaleAttrListCheckBySku=spuService.spuSaleAttrListIsCheck(pmsSkuInfo.getSpuId(),pmsSkuInfo.getId());
         model.addAttribute("spuSaleAttrListCheckBySku",spuSaleAttrListCheckBySku);
 
