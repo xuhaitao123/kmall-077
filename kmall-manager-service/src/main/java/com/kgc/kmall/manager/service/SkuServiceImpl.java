@@ -18,6 +18,7 @@ import redis.clients.jedis.Jedis;
 import javax.annotation.Resource;
 import javax.crypto.KeyGenerator;
 import java.io.StringReader;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -162,6 +163,21 @@ public class SkuServiceImpl implements SkuService{
         return pmsSkuInfos;
     }
 
+    @Override
+    public boolean checkPrice(Long productSkuId, BigDecimal price) {
+        boolean b = false;
+
+
+        PmsSkuInfo pmsSkuInfo1 = pmsSkuInfoMapper.selectByPrimaryKey(productSkuId);
+
+        BigDecimal price1 = new BigDecimal(pmsSkuInfo1.getPrice());
+
+        if(price.compareTo(price1)==0){
+            b = true;
+        }
+
+        return b;
+    }
 
 
 }
