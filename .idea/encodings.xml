@@ -7,6 +7,11 @@
     <file url="file://$PROJECT_DIR$/kmall-item-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-manager-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-manager-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kmall-order-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kmall-order-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kmall-passport-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kmall-payment-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kmall-payment-web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-redisson-test" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-search-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kmall-search-web" charset="UTF-8" />
